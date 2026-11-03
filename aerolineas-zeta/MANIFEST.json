@@ -1,0 +1,71 @@
+{
+  "export_date": "2026-10-21",
+  "commit": "070af9f31c52128658505a1dd10e3fdaf58b9cb2",
+  "files": [
+    {
+      "path": "web/assets/duo-portrait.webp",
+      "sha256": "54b0026dc9e073ad36169437e29180d9c396ff0c22209a4a59dbbd66f971620b",
+      "bytes": 431900
+    },
+    {
+      "path": "web/assets/live-blue.webp",
+      "sha256": "83254ba7cc28b15edcd07570e0649bae8c42af5288d17244da116082f36bcf4d",
+      "bytes": 115732
+    },
+    {
+      "path": "web/assets/live-orange.webp",
+      "sha256": "bbfe5b6ba859aa7ddec3a797e6637948aeaf448427fac4df2ef6e4250fc037b0",
+      "bytes": 257420
+    },
+    {
+      "path": "web/assets/logo-black.webp",
+      "sha256": "9df3c9cc24ba3852fdac692c64bf3ccf0303d0fdac94e23226feac5041081251",
+      "bytes": 22188
+    },
+    {
+      "path": "web/assets/logo-neon.webp",
+      "sha256": "4a86394967de512cf2cd1bd9c17756b81d435099c12a4542a6ec51b95437b821",
+      "bytes": 154956
+    },
+    {
+      "path": "web/assets/logo-white.webp",
+      "sha256": "2241277fd17c279b9a5e20cbfda6e8f1e5a43f779ea808dbfd8b1b3dd7780eef",
+      "bytes": 21568
+    },
+    {
+      "path": "web/en/gracies.html",
+      "sha256": "39554aeac0bf4406b28a5349d37df3b7152283c8a4245dac0c617299ea0b6a0c",
+      "bytes": 881
+    },
+    {
+      "path": "web/en/index.html",
+      "sha256": "b1362f4316a43cd0a9d193ef4f60e171ff56a79966707bd3ae65d914de0e08c2",
+      "bytes": 37073
+    },
+    {
+      "path": "web/es/gracies.html",
+      "sha256": "9acd816ad33735fac2d4dcbbc9ece4e9a5070069e6dc32cecf7ce21787057e49",
+      "bytes": 867
+    },
+    {
+      "path": "web/es/index.html",
+      "sha256": "6f95af485336188d60d0dbc0bbc4a69b2d46b61487fe8e78d22cc30f62ad56a3",
+      "bytes": 37417
+    },
+    {
+      "path": "web/gracies.html",
+      "sha256": "47db10bcc5aee1e0fac57b2e1d1bb93ca76870c3a6a1f7cac2a735abe7ad04ed",
+      "bytes": 866
+    },
+    {
+      "path": "web/index.html",
+      "sha256": "46c8268136b48aa1dd5f87233b3f4fddfa081935ac184c1e9a28a316f40cd7df",
+      "bytes": 37400
+    },
+    {
+      "path": "sites/hosting.json",
+      "sha256": "bcc673e9202ab9d71aadeee2f6c93acd3758a723d232e8f7d70370b718ecba5b",
+      "bytes": 106
+    }
+  ]
+}
