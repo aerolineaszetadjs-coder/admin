@@ -1,0 +1,29 @@
+backend:
+  name: github
+  repo: aerolineaszetadjs-coder/admin
+  branch: main
+
+media_folder: "assets"
+public_folder: "/assets"
+
+collections:
+  - name: "eventos"
+    label: "Próximas Sesiones"
+    folder: "content/eventos"
+    create: true
+    fields:
+      - { label: "Título de la sesión", name: "title", widget: "string" }
+      - { label: "Fecha del evento", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Lugar / Club", name: "place", widget: "string" }
+      - { label: "Enlace a entradas / info", name: "link", widget: "string", required: false }
+
+  - name: "musica"
+    label: "Música"
+    folder: "content/musica"
+    create: true
+    fields:
+      - { label: "Título del tema", name: "title", widget: "string" }
+      - { label: "Artista original", name: "artist", widget: "string" }
+      - { label: "Tipo", name: "type", widget: "select", options: ["Bootleg", "Mashup", "Mixtape"] }
+      - { label: "Color de fondo (CSS)", name: "cover_bg", widget: "string", default: "#ff6b22" }
+      - { label: "Enlace de SoundCloud", name: "soundcloud_url", widget: "string" }
