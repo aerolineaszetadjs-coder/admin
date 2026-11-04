@@ -21,4 +21,5 @@ records.forEach(record => record.addEventListener('toggle', () => {
 document.querySelectorAll('.languages a').forEach(link => link.addEventListener('click', () => {
  const url = new URL(link.href); url.hash = window.location.hash; link.href = url.href;
 }));
+ <script src="../cms-runtime.js"></script>
 </script></body></html>
