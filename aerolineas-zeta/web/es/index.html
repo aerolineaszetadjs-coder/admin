@@ -18,8 +18,13 @@ records.forEach(record => record.addEventListener('toggle', () => {
   if (!frame.hasAttribute('src')) frame.src = frame.dataset.src;
  } else frame.removeAttribute('src');
 }));
-document.querySelectorAll('.languages a').forEach(link => link.addEventListener('click', () => {
- const url = new URL(link.href); url.hash = window.location.hash; link.href = url.href;
-}));
- <script src="../cms-runtime.js"></script>
-</script></body></html>
+ 
+  document.querySelectorAll('.languages a').forEach(link => link.addEventListener('click', () => {
+    const url = new URL(link.href);
+    url.hash = window.location.hash;
+    link.href = url.href;
+  }));
+</script>
+<script src="../cms-runtime.js"></script>
+</body>
+</html>
