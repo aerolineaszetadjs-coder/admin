@@ -19,7 +19,6 @@ records.forEach(record => record.addEventListener('toggle', () => {
  } else frame.removeAttribute('src');
 }));
  
-
 document.querySelectorAll('.languages a').forEach(link => {
   link.addEventListener('click', () => {
     const url = new URL(link.href);
@@ -31,4 +30,3 @@ document.querySelectorAll('.languages a').forEach(link => {
 <script src="../cms-runtime.js"></script>
 </body>
 </html>
-
