@@ -3,7 +3,7 @@ backend:
   name: github
   repo: aerolineaszetadjs-coder/admin
   branch: proves-cms
-  base_url: https://REPLACE-WITH-OAUTH-WORKER.example.workers.dev
+  base_url: https://winter-heart-4dcaaerolineas-zeta-cms-auth.aerolineaszetadjs.workers.dev
   auth_endpoint: auth
 media_folder: aerolineas-zeta/web/assets
 public_folder: /assets
