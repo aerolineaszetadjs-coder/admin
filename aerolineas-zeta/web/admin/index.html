@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aerolíneas Zeta | Administració</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    #az-typo-preview { position:fixed;right:20px;bottom:20px;z-index:10000;width:min(360px,calc(100vw - 40px));max-height:65vh;overflow:auto;background:#fff;color:#202124;border:1px solid #d5d8de;border-radius:12px;box-shadow:0 10px 35px #0003;font:14px 'DM Sans',sans-serif; }
+    #az-typo-preview[hidden] {display:none!important}
+    #az-typo-preview header {display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #ddd;gap:10px}
+    #az-typo-preview button {border:1px solid #bbb;border-radius:6px;background:#fff;padding:5px 9px;cursor:pointer;color:#222}
+    #az-typo-preview .az-body {padding:12px}
+    #az-typo-preview .az-item {padding:10px 0;border-bottom:1px solid #eee}
+    #az-typo-preview .az-item:last-child {border-bottom:0}
+    #az-typo-preview .az-name {font:600 11px 'DM Sans',sans-serif;color:#666;margin-bottom:7px}
+    #az-typo-preview .az-sample {background:#eceff2;border-radius:6px;padding:10px;overflow:auto}
+    #az-typo-preview .az-sample span {display:block;line-height:1.15;overflow-wrap:anywhere}
+    #az-typo-preview .az-foot {font-size:11px;color:#666;margin-top:10px}
+  </style>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@3/dist/decap-cms.js"></script>
+  <script>
+  // Previsualització auxiliar sense React: no interfereix amb el render de Decap.
+  (() => {
+    const groups = [
+      ['hero','Títol principal','AEROLÍNEAS ZETA'],
+      ['headings','Títols de secció','BOOTLEGS · MASHUPS'],
+      ['subtitles','Subtítols i etiquetes','GROOVY MIXES SINCE 2007'],
+      ['body','Textos descriptius','Un viatge musical entre indie, pop, rock i electrònica.'],
+      ['navigation','Menús','Bootlegs   Mashups   Mixtapes'],
+      ['buttons','Botons','ESCOLTAR ↗']
+    ];
+    const fonts = ['Barlow Condensed','DM Sans','Arial','Georgia','Verdana'];
+    let defaults = {}, panel, samples = {}, dismissed = false;
+    const clean = s => String(s || '').trim().replace(/\s+/g,' ');
+    const safeSize = s => /^(?:\d+(?:\.\d+)?(?:px|rem|em|vw)|clamp\(\s*\d+(?:\.\d+)?(?:px|rem|em|vw)\s*,\s*\d+(?:\.\d+)?(?:px|rem|em|vw)\s*,\s*\d+(?:\.\d+)?(?:px|rem|em|vw)\s*\))$/i.test(s);
+    const safeColor = s => /^#[0-9a-f]{3,8}$/i.test(s) || /^var\(--(?:ink|paper|pink|orange)\)$/.test(s);
+    const cssColors = {'var(--ink)':'#201c21','var(--paper)':'#f5f3f1','var(--pink)':'#ef4f8e','var(--orange)':'#f47b39'};
+    function editorOpen() {
+      const path = decodeURIComponent(location.pathname + location.hash).toLowerCase();
+      return path.includes('typography') || (document.body.innerText || '').includes('Writing in Tipografia i estils collection');
+    }
+    function makePanel() {
+      panel = document.createElement('aside'); panel.id = 'az-typo-preview'; panel.hidden = true;
+      const head = document.createElement('header');
+      const title = document.createElement('strong'); title.textContent = 'Vista prèvia · Tipografia';
+      const close = document.createElement('button'); close.type = 'button'; close.textContent = 'Tanca'; close.onclick = () => { dismissed = true; panel.hidden = true; };
+      head.append(title,close); panel.append(head);
+      const body = document.createElement('div'); body.className = 'az-body';
+      groups.forEach(([key,label,example]) => {
+        const item = document.createElement('div'); item.className = 'az-item';
+        const name = document.createElement('div'); name.className = 'az-name'; name.textContent = label;
+        const sample = document.createElement('div'); sample.className = 'az-sample';
+        const text = document.createElement('span'); text.textContent = example; sample.append(text);
+        item.append(name,sample); body.append(item); samples[key] = text;
+      });
+      const foot = document.createElement('div'); foot.className = 'az-foot'; foot.textContent = 'Mostra orientativa: la mida es limita a 46 px dins del panell.'; body.append(foot);
+      panel.append(body); document.body.append(panel);
+    }
+    // Cerca el contenidor més petit de cada grup que contingui els camps de font i mida.
+    function groupContainer(label) {
+      const all = document.querySelectorAll('label, legend, span, div');
+      for (const el of all) {
+        if (el.closest('#az-typo-preview')) continue;
+        if (clean(el.textContent).toLocaleLowerCase('ca') !== label.toLocaleLowerCase('ca')) continue;
+        let node = el.parentElement;
+        for (let n=0; node && n<8; n++,node=node.parentElement) {
+          const t = node.textContent || '';
+          if (/Tipus de lletra/i.test(t) && /Mida CSS/i.test(t) && /Gruix/i.test(t)) return node;
+        }
+      }
+      return null;
+    }
+    function fieldContainer(root, label) {
+      for (const el of root.querySelectorAll('label, span, div')) {
+        if (clean(el.textContent).toLocaleLowerCase('ca') !== label.toLocaleLowerCase('ca')) continue;
+        let node = el.parentElement;
+        for (let n=0; node && n<5 && root.contains(node); n++,node=node.parentElement) {
+          if (node.querySelector('input, [role="combobox"], select')) return node;
+        }
+      }
+      return null;
+    }
+    function readField(root, label) {
+      const field = fieldContainer(root,label);
+      if (!field) return '';
+      const select = field.querySelector('select'); if (select) return select.value;
+      if (label === 'Mida CSS' || label === 'Color CSS') {
+        const input = field.querySelector('input:not([type="hidden"]),textarea');
+        return input ? input.value : '';
+      }
+      // React-select mostra l'opció seleccionada com a text, no com a valor de l'input.
+      const chosen = field.querySelector('[class*="singleValue"], [class*="SingleValue"]');
+      if (chosen) return clean(chosen.textContent);
+      const visible = clean(field.textContent);
+      const options = label === 'Gruix' ? ['900','800','700','600','500','400'] : fonts;
+      return options.find(v => visible.includes(v)) || '';
+    }
+    function refresh() {
+      if (!panel) return;
+      const active = editorOpen(); panel.hidden = !active || dismissed;
+      if (!active) { dismissed = false; return; }
+      groups.forEach(([key,label]) => {
+        const data = defaults[key] || {};
+        const container = groupContainer(label);
+        const font = container && readField(container,'Tipus de lletra') || data.font || 'DM Sans';
+        const size = container && readField(container,'Mida CSS') || data.size || '20px';
+        const weight = container && readField(container,'Gruix') || data.weight || 400;
+        const color = container && readField(container,'Color CSS') || data.color || '#201c21';
+        const text = samples[key];
+        text.style.fontFamily = fonts.includes(font) ? '"'+font+'",sans-serif' : 'sans-serif';
+        text.style.fontSize = safeSize(String(size)) ? 'min(46px, '+size+')' : '20px';
+        text.style.fontWeight = /^([4-9]00)$/.test(String(weight)) ? String(weight) : '400';
+        text.style.color = safeColor(String(color)) ? (cssColors[color] || color) : '#201c21';
+      });
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      makePanel();
+      fetch('/content/typography.json',{cache:'no-store'}).then(r=>r.ok?r.json():{}).then(v=>{defaults=v;refresh()}).catch(()=>{});
+      document.addEventListener('input',refresh,true);
+      document.addEventListener('change',refresh,true);
+      document.addEventListener('click',()=>setTimeout(refresh,50),true);
+      // Decap modifica el DOM en navegar i en desplegar camps.
+      setInterval(refresh,750);
+    });
+  })();
+  </script>
+</body>
+</html>
