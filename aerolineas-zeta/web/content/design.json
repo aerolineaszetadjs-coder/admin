@@ -1,0 +1,70 @@
+{
+  "colors": {
+    "pink": "#f747a5",
+    "orange": "#ff6b22",
+    "ink": "#201c21",
+    "paper": "#f1eddf"
+  },
+  "sections": [
+    {
+      "key": "s0",
+      "label": "Portada",
+      "visible": true,
+      "order": 0
+    },
+    {
+      "key": "s1",
+      "label": "Bootlegs",
+      "visible": true,
+      "order": 1
+    },
+    {
+      "key": "s2",
+      "label": "Mashups",
+      "visible": true,
+      "order": 2
+    },
+    {
+      "key": "s3",
+      "label": "Mixtapes",
+      "visible": true,
+      "order": 3
+    },
+    {
+      "key": "s4",
+      "label": "Qui som",
+      "visible": true,
+      "order": 4
+    },
+    {
+      "key": "s5",
+      "label": "Identitat",
+      "visible": true,
+      "order": 5
+    },
+    {
+      "key": "s6",
+      "label": "Sessions",
+      "visible": true,
+      "order": 6
+    },
+    {
+      "key": "s7",
+      "label": "Merchandising",
+      "visible": true,
+      "order": 7
+    },
+    {
+      "key": "s8",
+      "label": "Booking",
+      "visible": true,
+      "order": 8
+    },
+    {
+      "key": "s9",
+      "label": "Formulari",
+      "visible": true,
+      "order": 9
+    }
+  ]
+}
