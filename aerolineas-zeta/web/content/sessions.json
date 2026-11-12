@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "date": "2026-10-24",
+      "time": "",
+      "title": "Faràndula indie",
+      "venue": "Algues Club",
+      "city": "La Ràpita",
+      "url": "",
+      "visible": true
+    },
+    {
+      "visible": true,
+      "date": "2026-12-05",
+      "title": "Tardeo Indie Aniversari Sara'o",
+      "venue": "Noa Park",
+      "city": "Amposta",
+      "url": "Entrada gratuïta"
+    },
+    {
+      "date": "2026-12-18",
+      "time": "",
+      "title": "La Licorera",
+      "venue": "",
+      "city": "Valls",
+      "url": "",
+      "visible": true
+    },
+    {
+      "date": "2026-12-21",
+      "time": "",
+      "title": "Tardeo de profes",
+      "venue": "Algues Club",
+      "city": "La Ràpita",
+      "url": "https://planasso.com/es/evento/21-12-tardeo-de-profes-21-12-2026/",
+      "visible": true
+    },
+    {
+      "date": "2026-12-26",
+      "time": "",
+      "title": "Tardeo indie Sant Esteve",
+      "venue": "La Perla",
+      "city": "Amposta",
+      "url": "https://ebreticket.cat/esdeveniments/we-love-tardeo-indie-sant-esteve-2026/",
+      "visible": true
+    },
+    {
+      "visible": true,
+      "date": "2027-01-23",
+      "title": "Faràndula Indie",
+      "venue": "Algues Club",
+      "city": "La Ràpita",
+      "url": "Properament"
+    },
+    {
+      "visible": true,
+      "date": "2027-02-27",
+      "title": "Tardeo Indie",
+      "city": "Tarragona",
+      "url": "Properament"
+    },
+    {
+      "visible": true,
+      "date": "2027-06-05",
+      "title": "Lovermood",
+      "venue": "La Perla - We Love Fest",
+      "city": "Amposta",
+      "url": "Properament"
+    }
+  ]
+}
