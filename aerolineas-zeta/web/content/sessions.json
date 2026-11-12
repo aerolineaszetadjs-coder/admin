@@ -51,6 +51,13 @@
       "venue": "Algues Club",
       "city": "La Ràpita",
       "url": "Properament"
+    },
+    {
+      "visible": true,
+      "date": "2027-02-27",
+      "title": "Tardeo Indie",
+      "city": "TGN",
+      "url": "Properament"
     }
   ]
 }
