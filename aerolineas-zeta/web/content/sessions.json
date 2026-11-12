@@ -1,4 +1,3 @@
-
 {
   "items": [
     {
@@ -36,6 +35,14 @@
       "city": "Amposta",
       "url": "",
       "visible": true
+    },
+    {
+      "visible": true,
+      "date": "2026-12-05",
+      "title": "Tardeo Indie Aniversari Sara'o",
+      "venue": "Noa Park",
+      "city": "Amposta",
+      "url": "Entrada gratuïta"
     }
   ]
 }
