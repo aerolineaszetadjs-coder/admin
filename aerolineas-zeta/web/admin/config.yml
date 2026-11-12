@@ -8,6 +8,51 @@ media_folder: aerolineas-zeta/web/assets
 public_folder: /assets
 publish: false
 collections:
+
+- name: live_sessions
+  label: Gestionar sessions
+  files:
+  - name: sessions
+    label: Properes sessions i historial
+    file: aerolineas-zeta/web/content/sessions.json
+    fields:
+    - label: Actuacions
+      name: items
+      widget: list
+      collapsed: true
+      summary: '{{fields.date}} — {{fields.title}}'
+      fields:
+      - label: Data
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+      - label: Hora
+        name: time
+        widget: string
+        required: false
+        hint: 'Exemple: 23:30'
+      - label: Nom de l'esdeveniment
+        name: title
+        widget: string
+      - label: Sala o local
+        name: venue
+        widget: string
+        required: false
+      - label: Població
+        name: city
+        widget: string
+        required: false
+      - label: Enllaç d'entrades o informació
+        name: url
+        widget: string
+        required: false
+      - label: Mostrar a la web
+        name: visible
+        widget: boolean
+        default: true
+
 - name: music_catalog
   label: Afegir contingut
   files:
