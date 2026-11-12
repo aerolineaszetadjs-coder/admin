@@ -58,6 +58,14 @@
       "title": "Tardeo Indie",
       "city": "Tarragona",
       "url": "Properament"
+    },
+    {
+      "visible": true,
+      "date": "2027-06-05",
+      "title": "Lovermood",
+      "venue": "La Perla - We Love Fest",
+      "city": "Amposta",
+      "url": "Properament"
     }
   ]
 }
