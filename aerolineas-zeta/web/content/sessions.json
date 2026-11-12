@@ -43,6 +43,14 @@
       "city": "Amposta",
       "url": "",
       "visible": true
+    },
+    {
+      "visible": true,
+      "date": "2027-01-23",
+      "title": "Faràndula Indie",
+      "venue": "Algues Club",
+      "city": "La Ràpita",
+      "url": "Properament"
     }
   ]
 }
