@@ -1,0 +1,41 @@
+
+{
+  "items": [
+    {
+      "date": "2026-10-24",
+      "time": "",
+      "title": "Faràndula indie",
+      "venue": "Algues Club",
+      "city": "La Ràpita",
+      "url": "",
+      "visible": true
+    },
+    {
+      "date": "2026-12-18",
+      "time": "",
+      "title": "La Licorera",
+      "venue": "",
+      "city": "Valls",
+      "url": "",
+      "visible": true
+    },
+    {
+      "date": "2026-12-21",
+      "time": "",
+      "title": "Tardeo de profes",
+      "venue": "Algues Club",
+      "city": "La Ràpita",
+      "url": "",
+      "visible": true
+    },
+    {
+      "date": "2026-12-26",
+      "time": "",
+      "title": "Tardeo indie Sant Esteve",
+      "venue": "La Perla",
+      "city": "Amposta",
+      "url": "",
+      "visible": true
+    }
+  ]
+}
