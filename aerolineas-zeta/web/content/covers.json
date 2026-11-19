@@ -1,27 +1,27 @@
 {
   "access": {
-    "enabled": false,
-    "mode": "image",
-    "image": "",
-    "mobile_image": "",
+    "enabled": true,
     "slides": [],
-    "video": "",
-    "poster": "",
+    "mode": "image",
     "animation": "",
     "interval": 5,
+    "remember_language": true,
+    "poster": "",
     "transition": "fade",
-    "remember_language": true
+    "video": "",
+    "image": "/assets/dues-samarretes-negres-logotip-central.webp",
+    "mobile_image": ""
   },
   "main": {
     "enabled": false,
-    "mode": "image",
-    "image": "",
-    "mobile_image": "",
     "slides": [],
-    "video": "",
-    "poster": "",
+    "mode": "image",
     "animation": "",
     "interval": 5,
-    "transition": "fade"
+    "poster": "",
+    "transition": "fade",
+    "video": "",
+    "image": "",
+    "mobile_image": ""
   }
 }
