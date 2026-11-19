@@ -1,0 +1,52 @@
+{
+  "access": {
+    "enabled": true,
+    "slides": [],
+    "mode": "image",
+    "animation": "",
+    "interval": 5,
+    "remember_language": false,
+    "poster": "",
+    "transition": "fade",
+    "video": "",
+    "image": "/assets/dues-samarretes-negres-logotip-central.webp",
+    "mobile_image": ""
+  },
+  "main": {
+    "enabled": true,
+    "slides": [
+      {
+        "src": "/assets/live-blue.webp",
+        "position_x": 25,
+        "desktop_crop": "{\"x\":67,\"y\":44,\"zoom\":0.65}",
+        "mobile_crop": "{\"x\":67,\"y\":32,\"zoom\":0.65}"
+      },
+      {
+        "src": "/assets/dues-samarretes-negres-logotip-central.webp",
+        "position_x": 50,
+        "mobile_crop": "{\"x\":51,\"y\":37,\"zoom\":0.4}",
+        "desktop_crop": "{\"x\":51,\"y\":55,\"zoom\":0.85}"
+      },
+      {
+        "src": "/assets/duo-portrait.webp",
+        "desktop_crop": "{\"x\":50,\"y\":40,\"zoom\":0.3}",
+        "mobile_crop": "{\"x\":50,\"y\":31,\"zoom\":1}"
+      },
+      {
+        "position_x": 50,
+        "position_y": 50,
+        "src": "/assets/live-orange.webp",
+        "desktop_crop": "{\"x\":50,\"y\":50,\"zoom\":1}",
+        "mobile_crop": "{\"x\":47,\"y\":37,\"zoom\":0.5}"
+      }
+    ],
+    "mode": "carousel",
+    "animation": "",
+    "interval": 5,
+    "poster": "",
+    "transition": "fade",
+    "video": "",
+    "image": "/assets/dues-samarretes-negres-logotip-central.webp",
+    "mobile_image": "/assets/dues-samarretes-negres-logotip-central.webp"
+  }
+}

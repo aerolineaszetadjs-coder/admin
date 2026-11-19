@@ -9,6 +9,80 @@ public_folder: /assets
 publish: false
 collections:
 
+- name: cover_management
+  label: Gestió de portades
+  files:
+  - name: covers
+    label: Portada d'accés i portada principal
+    file: aerolineas-zeta/web/content/covers.json
+    fields:
+    - label: Portada d'accés (selector d'idioma)
+      name: access
+      widget: object
+      fields:
+      - {label: Activada, name: enabled, widget: boolean, default: false}
+      - label: Modalitat
+        name: mode
+        widget: select
+        options: [{label: Imatge fixa, value: image}, {label: Carrusel de fotografies, value: carousel}, {label: Vídeo, value: video}, {label: Animació GIF o WebP, value: animation}]
+        default: image
+      - {label: Imatge fixa, name: image, widget: image, required: false}
+      - {label: Imatge per a mòbil, name: mobile_image, widget: image, required: false}
+      - label: Fotografies del carrusel
+        name: slides
+        widget: list
+        required: false
+        fields:
+        - {label: Fotografia, name: src, widget: image}
+        - {label: Versió mòbil, name: mobile_src, widget: image, required: false}
+        - {label: Enquadrament horitzontal (%), name: position_x, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = esquerra, 50 = centre, 100 = dreta'}
+        - {label: Enquadrament vertical (%), name: position_y, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = dalt, 50 = centre, 100 = baix'}
+        - {label: Text alternatiu, name: alt, widget: string, required: false}
+      - {label: Vídeo MP4 o WebM, name: video, widget: file, required: false}
+      - {label: Imatge alternativa del vídeo, name: poster, widget: image, required: false}
+      - {label: Animació GIF o WebP, name: animation, widget: image, required: false}
+      - {label: Interval del carrusel (segons), name: interval, widget: number, value_type: int, min: 3, max: 15, default: 5}
+      - label: Transició
+        name: transition
+        widget: select
+        options: [{label: Fos encadenat, value: fade}, {label: Desplaçament, value: slide}]
+        default: fade
+      - {label: Recordar l'idioma escollit, name: remember_language, widget: boolean, default: true}
+    - label: Portada del web principal
+      name: main
+      widget: object
+      fields:
+      - {label: Activar fons multimèdia, name: enabled, widget: boolean, default: false}
+      - label: Modalitat
+        name: mode
+        widget: select
+        options: [{label: Imatge fixa, value: image}, {label: Carrusel de fotografies, value: carousel}, {label: Vídeo, value: video}, {label: Animació GIF o WebP, value: animation}]
+        default: image
+      - {label: Imatge fixa, name: image, widget: image, required: false}
+      - {label: Imatge per a mòbil, name: mobile_image, widget: image, required: false}
+      - label: Fotografies del carrusel
+        name: slides
+        widget: list
+        required: false
+        fields:
+        - {label: Fotografia, name: src, widget: image}
+        - {label: Versió mòbil, name: mobile_src, widget: image, required: false}
+        - {label: Enquadrament horitzontal (%), name: position_x, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = esquerra, 50 = centre, 100 = dreta'}
+        - {label: Enquadrament vertical (%), name: position_y, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = dalt, 50 = centre, 100 = baix'}
+        - {label: Enquadrament escriptori avançat (JSON), name: desktop_crop, widget: text, required: false, hint: 'Configuració generada amb el mode Escriptori de /admin/editor-mobil.html. Encara no desis des del CMS de proves.'}
+        - {label: Enquadrament mòbil avançat (JSON), name: mobile_crop, widget: text, required: false, hint: 'Obre /admin/editor-mobil.html en una altra pestanya per ajustar la fotografia visualment. Copia la configuració aquí. IMPORTANT: aquest CMS encara desa a proves-cms; no desis fins que validem la integració.'}
+        - {label: Text alternatiu, name: alt, widget: string, required: false}
+      - {label: Vídeo MP4 o WebM, name: video, widget: file, required: false}
+      - {label: Imatge alternativa del vídeo, name: poster, widget: image, required: false}
+      - {label: Animació GIF o WebP, name: animation, widget: image, required: false}
+      - {label: Interval del carrusel (segons), name: interval, widget: number, value_type: int, min: 3, max: 15, default: 5}
+      - label: Transició
+        name: transition
+        widget: select
+        options: [{label: Fos encadenat, value: fade}, {label: Desplaçament, value: slide}]
+        default: fade
+
+
 - name: live_sessions
   label: Gestionar sessions
   files:
@@ -28,11 +102,14 @@ collections:
         date_format: YYYY-MM-DD
         time_format: false
         format: YYYY-MM-DD
-      - label: Hora
+      - label: "Hora d'inici (obligatòria)"
         name: time
         widget: string
-        required: false
-        hint: 'Exemple: 23:30'
+        required: true
+        pattern:
+          - '^([01][0-9]|2[0-3]):[0-5][0-9]$'
+          - 'Introdueix una hora vàlida en format HH:MM (exemple: 23:30)'
+        hint: 'Format 24 hores, per exemple 18:00 o 23:30'
       - label: Nom de l'esdeveniment
         name: title
         widget: string
@@ -227,6 +304,19 @@ collections:
         - Barlow Condensed
         - DM Sans
         - Arial
+        - Helvetica
+        - Helvetica Neue
+        - Arial Narrow
+        - Inter
+        - Archivo
+        - Archivo Narrow
+        - Roboto Condensed
+        - Oswald
+        - Space Grotesk
+        - IBM Plex Sans
+        - Anton
+        - Bebas Neue
+        - Montserrat
         - Georgia
         - Verdana
       - label: Mida CSS
@@ -265,6 +355,19 @@ collections:
         - Barlow Condensed
         - DM Sans
         - Arial
+        - Helvetica
+        - Helvetica Neue
+        - Arial Narrow
+        - Inter
+        - Archivo
+        - Archivo Narrow
+        - Roboto Condensed
+        - Oswald
+        - Space Grotesk
+        - IBM Plex Sans
+        - Anton
+        - Bebas Neue
+        - Montserrat
         - Georgia
         - Verdana
       - label: Mida CSS
@@ -303,6 +406,19 @@ collections:
         - Barlow Condensed
         - DM Sans
         - Arial
+        - Helvetica
+        - Helvetica Neue
+        - Arial Narrow
+        - Inter
+        - Archivo
+        - Archivo Narrow
+        - Roboto Condensed
+        - Oswald
+        - Space Grotesk
+        - IBM Plex Sans
+        - Anton
+        - Bebas Neue
+        - Montserrat
         - Georgia
         - Verdana
       - label: Mida CSS
@@ -341,6 +457,19 @@ collections:
         - Barlow Condensed
         - DM Sans
         - Arial
+        - Helvetica
+        - Helvetica Neue
+        - Arial Narrow
+        - Inter
+        - Archivo
+        - Archivo Narrow
+        - Roboto Condensed
+        - Oswald
+        - Space Grotesk
+        - IBM Plex Sans
+        - Anton
+        - Bebas Neue
+        - Montserrat
         - Georgia
         - Verdana
       - label: Mida CSS
@@ -379,6 +508,19 @@ collections:
         - Barlow Condensed
         - DM Sans
         - Arial
+        - Helvetica
+        - Helvetica Neue
+        - Arial Narrow
+        - Inter
+        - Archivo
+        - Archivo Narrow
+        - Roboto Condensed
+        - Oswald
+        - Space Grotesk
+        - IBM Plex Sans
+        - Anton
+        - Bebas Neue
+        - Montserrat
         - Georgia
         - Verdana
       - label: Mida CSS
@@ -417,6 +559,19 @@ collections:
         - Barlow Condensed
         - DM Sans
         - Arial
+        - Helvetica
+        - Helvetica Neue
+        - Arial Narrow
+        - Inter
+        - Archivo
+        - Archivo Narrow
+        - Roboto Condensed
+        - Oswald
+        - Space Grotesk
+        - IBM Plex Sans
+        - Anton
+        - Bebas Neue
+        - Montserrat
         - Georgia
         - Verdana
       - label: Mida CSS
