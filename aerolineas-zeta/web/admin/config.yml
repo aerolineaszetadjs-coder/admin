@@ -37,6 +37,7 @@ collections:
         - {label: Versió mòbil, name: mobile_src, widget: image, required: false}
         - {label: Enquadrament horitzontal (%), name: position_x, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = esquerra, 50 = centre, 100 = dreta'}
         - {label: Enquadrament vertical (%), name: position_y, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = dalt, 50 = centre, 100 = baix'}
+        - {label: Editor visual mòbil, name: mobile_crop, widget: azMobileCrop, required: false, hint: 'Ajusta la imatge arrossegant i fent zoom; si no indiques cap imatge, utilitza la versió mòbil o la fotografia del carrusel.'}
         - {label: Text alternatiu, name: alt, widget: string, required: false}
       - {label: Vídeo MP4 o WebM, name: video, widget: file, required: false}
       - {label: Imatge alternativa del vídeo, name: poster, widget: image, required: false}
@@ -69,6 +70,7 @@ collections:
         - {label: Versió mòbil, name: mobile_src, widget: image, required: false}
         - {label: Enquadrament horitzontal (%), name: position_x, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = esquerra, 50 = centre, 100 = dreta'}
         - {label: Enquadrament vertical (%), name: position_y, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = dalt, 50 = centre, 100 = baix'}
+        - {label: Editor visual mòbil, name: mobile_crop, widget: azMobileCrop, required: false, hint: 'Ajusta la imatge arrossegant i fent zoom; si no indiques cap imatge, utilitza la versió mòbil o la fotografia del carrusel.'}
         - {label: Text alternatiu, name: alt, widget: string, required: false}
       - {label: Vídeo MP4 o WebM, name: video, widget: file, required: false}
       - {label: Imatge alternativa del vídeo, name: poster, widget: image, required: false}
