@@ -19,7 +19,7 @@
         "src": "/assets/live-blue.webp",
         "position_x": 25,
         "desktop_crop": "{\"x\":67,\"y\":44,\"zoom\":0.65}",
-        "mobile_crop": "{\"x\":78,\"y\":32,\"zoom\":0.65}"
+        "mobile_crop": "{\"x\":67,\"y\":32,\"zoom\":0.65}"
       },
       {
         "src": "/assets/dues-samarretes-negres-logotip-central.webp",
@@ -37,7 +37,7 @@
         "position_y": 50,
         "src": "/assets/live-orange.webp",
         "desktop_crop": "{\"x\":50,\"y\":50,\"zoom\":1}",
-        "mobile_crop": "{\"x\":49,\"y\":50,\"zoom\":0.5}"
+        "mobile_crop": "{\"x\":47,\"y\":37,\"zoom\":0.5}"
       }
     ],
     "mode": "carousel",
