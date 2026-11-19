@@ -130,5 +130,74 @@
     });
   })();
   </script>
+
+  <script>
+  // Integració experimental: el CMS conserva l'autenticació i el desament.
+  (() => {
+    let active=null, overlay=null;
+    const fieldNames=['Enquadrament mòbil avançat (JSON)','Enquadrament escriptori avançat (JSON)'];
+    function fieldLabel(el){
+      const t=(el.textContent||'').trim();
+      return fieldNames.find(n=>t===n||t.startsWith(n+' '));
+    }
+    function findFields(){
+      const candidates=[...document.querySelectorAll('label')].filter(el=>fieldLabel(el));
+      return candidates.map(el=>{
+        let p=el.parentElement, input=null;
+        for(let i=0;p&&i<5;i++,p=p.parentElement){
+          input=p.querySelector('textarea');
+          if(input)break;
+        }
+        return input?{label:el,input,container:p}:null;
+      }).filter(Boolean);
+    }
+    function openEditor(input,mode,index){
+      active={input,mode,index};
+      overlay=document.createElement('div');
+      overlay.style.cssText='position:fixed;inset:0;z-index:200000;background:#000d;display:grid;place-items:center;padding:12px';
+      const dialog=document.createElement('div');
+      dialog.style.cssText='width:min(1100px,100%);height:min(850px,95vh);background:#101014;border-radius:12px;display:flex;flex-direction:column;overflow:hidden';
+      const top=document.createElement('div');
+      top.style.cssText='padding:10px;display:flex;justify-content:space-between;align-items:center;color:white;font:700 14px Arial';
+      top.textContent='Editor visual · '+(mode==='mobile'?'Mòbil':'Escriptori');
+      const close=document.createElement('button');close.textContent='Tanca';close.type='button';close.onclick=()=>{overlay.remove();overlay=null;active=null};
+      top.append(close);
+      const frame=document.createElement('iframe');
+      frame.title='Editor visual de portades';
+      frame.src='/admin/editor-mobil.html?integrated=1&slide='+index+'&mode='+mode;
+      frame.style.cssText='border:0;width:100%;flex:1';
+      dialog.append(top,frame);overlay.append(dialog);document.body.append(overlay);
+    }
+    function refresh(){
+      if(overlay)return;
+      const fields=findFields();
+      fields.forEach(({label,input,container},i)=>{
+        if(container.querySelector('.az-open-crop'))return;
+        const mode=fieldLabel(label).includes('mòbil')?'mobile':'desktop';
+        const sameMode=fields.filter(x=>fieldLabel(x.label).includes(mode==='mobile'?'mòbil':'escriptori'));
+        const index=sameMode.findIndex(x=>x.input===input);
+        const button=document.createElement('button');
+        button.type='button';button.className='az-open-crop';
+        button.textContent='Ajustar visualment';
+        button.style.cssText='display:block;margin:8px 0;padding:8px 12px;background:#ed4293;color:#111;border:0;border-radius:6px;font-weight:700;cursor:pointer';
+        button.onclick=e=>{e.preventDefault();openEditor(input,mode,index)};
+        container.append(button);
+      });
+    }
+    window.addEventListener('message',e=>{
+      if(e.origin!==location.origin||!active||e.data?.type!=='az-crop-apply')return;
+      if(e.data.mode!==active.mode||e.data.index!==active.index)return;
+      const crop=e.data.crop;
+      if(!crop||!['x','y','zoom'].every(k=>typeof crop[k]==='number'&&Number.isFinite(crop[k])))return;
+      const value=JSON.stringify({x:crop.x,y:crop.y,zoom:crop.zoom});
+      const setter=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set;
+      setter.call(active.input,value);
+      active.input.dispatchEvent(new Event('input',{bubbles:true}));
+      active.input.dispatchEvent(new Event('change',{bubbles:true}));
+      overlay.remove();overlay=null;active=null;
+    });
+    setInterval(refresh,1100);
+  })();
+  </script>
 </body>
 </html>
