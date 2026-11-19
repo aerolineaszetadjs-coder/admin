@@ -13,9 +13,19 @@
     "mobile_image": ""
   },
   "main": {
-    "enabled": false,
-    "slides": [],
-    "mode": "image",
+    "enabled": true,
+    "slides": [
+      {
+        "src": "/assets/live-blue.webp"
+      },
+      {
+        "src": "/assets/dues-samarretes-negres-logotip-central.webp"
+      },
+      {
+        "src": "/assets/aerolinies-zeta_-la-tripulació-musical-còpia.webp"
+      }
+    ],
+    "mode": "carousel",
     "animation": "",
     "interval": 5,
     "poster": "",
