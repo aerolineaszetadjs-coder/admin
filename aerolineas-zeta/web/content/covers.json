@@ -1,6 +1,6 @@
 {
   "access": {
-    "enabled": true,
+    "enabled": false,
     "slides": [],
     "mode": "image",
     "animation": "",
