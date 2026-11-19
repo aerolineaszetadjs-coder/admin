@@ -3557,27 +3557,6 @@ collections:
         widget: string
         required: false
 
-        - 'Introdueix una hora vàlida en format HH:MM (exemple: 23:30)'
-        hint: 'Format 24 hores, per exemple 18:00 o 23:30'
-      - label: Nom de l'esdeveniment
-        name: title
-        widget: string
-      - label: Sala o local
-        name: venue
-        widget: string
-        required: false
-      - label: Població
-        name: city
-        widget: string
-        required: false
-      - label: Enllaç d'entrades o informació
-        name: url
-        widget: string
-        required: false
-      - label: Mostrar a la web
-        name: visible
-        widget: boolean
-        default: true
 
 - name: music_catalog
   label: Afegir contingut
