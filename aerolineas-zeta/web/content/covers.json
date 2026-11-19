@@ -18,7 +18,7 @@
       {
         "src": "/assets/live-blue.webp",
         "position_x": 25,
-        "desktop_crop": "{\"x\":50,\"y\":65,\"zoom\":1}",
+        "desktop_crop": "{\"x\":50,\"y\":57,\"zoom\":1}",
         "mobile_crop": "{\"x\":79,\"y\":40,\"zoom\":0.8}"
       },
       {
