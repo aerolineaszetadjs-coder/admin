@@ -35,7 +35,9 @@
       {
         "position_x": 50,
         "position_y": 50,
-        "src": "/assets/live-orange.webp"
+        "src": "/assets/live-orange.webp",
+        "desktop_crop": "{\"x\":50,\"y\":50,\"zoom\":1}",
+        "mobile_crop": "{\"x\":49,\"y\":50,\"zoom\":0.5}"
       }
     ],
     "mode": "carousel",
