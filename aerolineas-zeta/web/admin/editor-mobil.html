@@ -9,7 +9,7 @@
 <label>Posició vertical <output id="yout">50%</output><input id="y" type="range" min="0" max="100" value="50"></label>
 <label>Zoom <output id="zout">1.00×</output><input id="zoom" type="range" min=".3" max="3" step=".05" value="1"></label>
 <button id="reset" class="secondary">Restablir enquadrament</button>
-<label>Configuració generada<textarea id="result" readonly></textarea></label>
+<label>Enquadrament mòbil per enganxar al CMS<textarea id="result" readonly></textarea></label>
 <button id="copy">Copiar configuració</button>
 <p class="note">Arrossega la fotografia dins de la plantilla. Pots reduir el zoom per sota d’1× per recuperar les parts de la imatge original que queden fora de l'enquadrament. Els controls funcionen amb ratolí i amb el dit.</p>
 <p class="note warning">Aquesta maqueta no desa automàticament els canvis. És una prova segura abans d'integrar-la al CMS.</p>
@@ -21,7 +21,7 @@ let slides=[],index=0,drag=null;
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const valid=u=>typeof u==='string'&&/^\/assets\/[a-z0-9_./%()\-]+$/i.test(u);
 function state(){return slides[index]}
-function refresh(){const s=state();if(!s)return;['x','y','zoom'].forEach(k=>$(k).value=s[k]);$('xout').textContent=s.x+'%';$('yout').textContent=s.y+'%';$('zout').textContent=Number(s.zoom).toFixed(2)+'×';if(photo.getAttribute('src')!==s.src)photo.src=s.src;photo.style.objectPosition='center';const w=photo.clientWidth,h=photo.clientHeight,iw=photo.naturalWidth,ih=photo.naturalHeight;const fit=iw&&ih&&w&&h?Math.max(w/(Math.min(w/iw,h/ih)*iw),h/(Math.min(w/iw,h/ih)*ih)):1;const dx=(s.x-50)/100*w,dy=(s.y-50)/100*h;photo.style.transform='translate('+dx+'px,'+dy+'px) scale('+(fit*s.zoom)+')';result.value=JSON.stringify({src:s.src,mobile_crop:{x:s.x,y:s.y,zoom:s.zoom}},null,2)}
+function refresh(){const s=state();if(!s)return;['x','y','zoom'].forEach(k=>$(k).value=s[k]);$('xout').textContent=s.x+'%';$('yout').textContent=s.y+'%';$('zout').textContent=Number(s.zoom).toFixed(2)+'×';if(photo.getAttribute('src')!==s.src)photo.src=s.src;photo.style.objectPosition='center';const w=photo.clientWidth,h=photo.clientHeight,iw=photo.naturalWidth,ih=photo.naturalHeight;const fit=iw&&ih&&w&&h?Math.max(w/(Math.min(w/iw,h/ih)*iw),h/(Math.min(w/iw,h/ih)*ih)):1;const dx=(s.x-50)/100*w,dy=(s.y-50)/100*h;photo.style.transform='translate('+dx+'px,'+dy+'px) scale('+(fit*s.zoom)+')';result.value=JSON.stringify({x:s.x,y:s.y,zoom:s.zoom})}
 function select(i){index=i;refresh()}
 photo.addEventListener('load',refresh);window.addEventListener('resize',refresh);
 ['x','y','zoom'].forEach(k=>$(k).addEventListener('input',()=>{state()[k]=Number($(k).value);refresh()}));
