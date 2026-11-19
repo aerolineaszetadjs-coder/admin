@@ -2,7 +2,7 @@
   "items": [
     {
       "date": "2026-10-24",
-      "time": "",
+      "time": "18:00",
       "title": "Faràndula indie",
       "venue": "Algues Club",
       "city": "La Ràpita",
@@ -15,11 +15,12 @@
       "title": "Tardeo Indie Aniversari Sara'o",
       "venue": "Noa Park",
       "city": "Amposta",
-      "url": "Entrada gratuïta"
+      "url": "Entrada gratuïta",
+      "time": "17:00"
     },
     {
       "date": "2026-12-18",
-      "time": "",
+      "time": "23:00",
       "title": "La Licorera",
       "venue": "",
       "city": "Valls",
@@ -28,7 +29,7 @@
     },
     {
       "date": "2026-12-21",
-      "time": "",
+      "time": "18:00",
       "title": "Tardeo de profes",
       "venue": "Algues Club",
       "city": "La Ràpita",
@@ -37,7 +38,7 @@
     },
     {
       "date": "2026-12-26",
-      "time": "",
+      "time": "17:00",
       "title": "Tardeo indie Sant Esteve",
       "venue": "La Perla",
       "city": "Amposta",
@@ -50,14 +51,16 @@
       "title": "Faràndula Indie",
       "venue": "Algues Club",
       "city": "La Ràpita",
-      "url": "Properament"
+      "url": "Properament",
+      "time": "17:00"
     },
     {
       "visible": true,
       "date": "2027-02-27",
       "title": "Tardeo Indie",
       "city": "Tarragona",
-      "url": "Properament"
+      "url": "Properament",
+      "time": "18:00"
     },
     {
       "visible": true,
@@ -65,7 +68,8 @@
       "title": "Lovermood",
       "venue": "La Perla - We Love Fest",
       "city": "Amposta",
-      "url": "Properament"
+      "url": "Properament",
+      "time": "17:00"
     }
   ]
 }
