@@ -6,7 +6,7 @@
   <title>Aerolíneas Zeta | Administració</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Narrow:wght@400;500;600;700;800;900&family=Roboto+Condensed:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     #az-typo-preview { position:fixed;right:20px;bottom:20px;z-index:10000;width:min(360px,calc(100vw - 40px));max-height:65vh;overflow:auto;background:#fff;color:#202124;border:1px solid #d5d8de;border-radius:12px;box-shadow:0 10px 35px #0003;font:14px 'DM Sans',sans-serif; }
     #az-typo-preview[hidden] {display:none!important}
@@ -22,6 +22,7 @@
   </style>
 </head>
 <body>
+  <a href="/admin/editor-mobil.html" style="position:fixed;right:14px;top:12px;z-index:99999;background:#ed4293;color:#111;padding:10px 14px;border-radius:8px;font:700 13px Arial,sans-serif;text-decoration:none;box-shadow:0 2px 10px #0004">Editor visual de portades</a>
   <script src="https://unpkg.com/decap-cms@3/dist/decap-cms.js"></script>
   <script>
   // Previsualització auxiliar sense React: no interfereix amb el render de Decap.
@@ -34,7 +35,7 @@
       ['navigation','Menús','Bootlegs   Mashups   Mixtapes'],
       ['buttons','Botons','ESCOLTAR ↗']
     ];
-    const fonts = ['Barlow Condensed','DM Sans','Arial','Georgia','Verdana'];
+    const fonts = ['Barlow Condensed','DM Sans','Arial','Helvetica','Helvetica Neue','Arial Narrow','Inter','Archivo','Archivo Narrow','Roboto Condensed','Oswald','Space Grotesk','IBM Plex Sans','Anton','Bebas Neue','Montserrat','Georgia','Verdana'];
     let defaults = {}, panel, samples = {}, dismissed = false;
     const clean = s => String(s || '').trim().replace(/\s+/g,' ');
     const safeSize = s => /^(?:\d+(?:\.\d+)?(?:px|rem|em|vw)|clamp\(\s*\d+(?:\.\d+)?(?:px|rem|em|vw)\s*,\s*\d+(?:\.\d+)?(?:px|rem|em|vw)\s*,\s*\d+(?:\.\d+)?(?:px|rem|em|vw)\s*\))$/i.test(s);
@@ -118,6 +119,44 @@
         text.style.color = safeColor(String(color)) ? (cssColors[color] || color) : '#201c21';
       });
     }
+    // Un sol valor numèric, com en un editor de text. El camp CSS original es conserva.
+    function addSizeControls(){
+      if(!editorOpen())return;
+      for(const [key,label] of groups){
+        const group=groupContainer(label);
+        if(!group)continue;
+        const field=fieldContainer(group,'Mida CSS');
+        const input=field?.querySelector('input:not([type="hidden"])');
+        if(!input||field.querySelector('.az-size-control'))continue;
+        const panel=document.createElement('div');panel.className='az-size-control';
+        panel.style.cssText='display:flex;align-items:center;gap:10px;margin:10px 0;padding:10px;background:#f3f3f5;border:1px solid #ddd;border-radius:9px;color:#222;font:13px "DM Sans",sans-serif';
+        const title=document.createElement('label');title.textContent='Mida';title.style.fontWeight='700';
+        const size=document.createElement('input');size.type='number';size.min='8';size.max='300';size.step='1';size.setAttribute('aria-label','Mida de la lletra en píxels');
+        size.style.cssText='width:90px;padding:8px;border:1px solid #bbb;border-radius:6px;background:#fff;color:#222;font:600 16px "DM Sans",sans-serif';
+        const unit=document.createElement('span');unit.textContent='px';
+        const note=document.createElement('small');note.style.color='#666';note.textContent='El CSS original es manté fins que canviïs aquest valor.';
+        const sync=()=>{
+          const raw=String(input.value).trim();
+          const px=raw.match(/^([\\d.]+)px$/i);
+          const clamp=raw.match(/^clamp\\(\\s*[\\d.]+px\\s*,\\s*[\\d.]+vw\\s*,\\s*([\\d.]+)px\\s*\\)$/i);
+          const v=px?Number(px[1]):clamp?Number(clamp[1]):null;
+          if(v!==null&&Number.isFinite(v))size.value=String(Math.round(v));
+          else size.value='';
+          note.textContent=clamp?'Mida màxima actual; editar-la la convertirà en una mida fixa.':'Pots modificar el CSS manualment al camp superior.';
+        };
+        size.addEventListener('input',()=>{
+          const v=Number(size.value);
+          if(!size.value||!Number.isFinite(v)||v<8||v>300)return;
+          const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;
+          setter.call(input,v+'px');
+          input.dispatchEvent(new Event('input',{bubbles:true}));
+          input.dispatchEvent(new Event('change',{bubbles:true}));
+          refresh();
+        });
+        input.addEventListener('input',sync);
+        panel.append(title,size,unit,note);field.append(panel);sync();
+      }
+    }
     document.addEventListener('DOMContentLoaded', () => {
       makePanel();
       fetch('/content/typography.json',{cache:'no-store'}).then(r=>r.ok?r.json():{}).then(v=>{defaults=v;refresh()}).catch(()=>{});
@@ -125,8 +164,86 @@
       document.addEventListener('change',refresh,true);
       document.addEventListener('click',()=>setTimeout(refresh,50),true);
       // Decap modifica el DOM en navegar i en desplegar camps.
-      setInterval(refresh,750);
+      setInterval(()=>{addSizeControls();refresh()},750);
     });
+  })();
+  </script>
+
+  <script>
+  // Integració experimental: el CMS conserva l'autenticació i el desament.
+  (() => {
+    let active=null, overlay=null;
+    const fieldNames=['Enquadrament mòbil avançat (JSON)','Enquadrament escriptori avançat (JSON)'];
+    function fieldLabel(el){
+      const t=(el.textContent||'').trim();
+      return fieldNames.find(n=>t===n||t.startsWith(n+' '));
+    }
+    function findFields(){
+      const candidates=[...document.querySelectorAll('label')].filter(el=>fieldLabel(el));
+      return candidates.map(el=>{
+        let p=el.parentElement, input=null;
+        for(let i=0;p&&i<5;i++,p=p.parentElement){
+          input=p.querySelector('textarea');
+          if(input)break;
+        }
+        return input?{label:el,input,container:p}:null;
+      }).filter(Boolean);
+    }
+    function openEditor(input,mode,index){
+      active={input,mode,index};
+      overlay=document.createElement('div');
+      overlay.style.cssText='position:fixed;inset:0;z-index:200000;background:#000d;display:grid;place-items:center;padding:12px';
+      const dialog=document.createElement('div');
+      dialog.style.cssText='width:min(1100px,100%);height:min(850px,95vh);background:#101014;border-radius:12px;display:flex;flex-direction:column;overflow:hidden';
+      const top=document.createElement('div');
+      top.style.cssText='padding:10px;display:flex;justify-content:space-between;align-items:center;color:white;font:700 14px Arial';
+      top.textContent='Editor visual · '+(mode==='mobile'?'Mòbil':'Escriptori');
+      const close=document.createElement('button');close.textContent='Tanca';close.type='button';close.onclick=()=>{overlay.remove();overlay=null;active=null};
+      top.append(close);
+      const frame=document.createElement('iframe');
+      frame.title='Editor visual de portades';
+      frame.src='/admin/editor-mobil.html?integrated=1&slide='+index+'&mode='+mode;
+      frame.style.cssText='border:0;width:100%;flex:1';
+      dialog.append(top,frame);overlay.append(dialog);document.body.append(overlay);
+    }
+    function refresh(){
+      if(overlay)return;
+      const fields=findFields();
+      fields.forEach(({label,input,container},i)=>{
+        if(container.querySelector('.az-open-crop'))return;
+        const mode=fieldLabel(label).includes('mòbil')?'mobile':'desktop';
+        const sameMode=fields.filter(x=>fieldLabel(x.label).includes(mode==='mobile'?'mòbil':'escriptori'));
+        const index=sameMode.findIndex(x=>x.input===input);
+        const button=document.createElement('button');
+        button.type='button';button.className='az-open-crop';
+        button.textContent='Ajustar visualment';
+        button.style.cssText='display:block;margin:8px 0;padding:8px 12px;background:#ed4293;color:#111;border:0;border-radius:6px;font-weight:700;cursor:pointer';
+        button.onclick=e=>{e.preventDefault();openEditor(input,mode,index)};
+        container.append(button);
+      });
+    }
+    window.addEventListener('message',e=>{
+      if(e.origin!==location.origin||!active||!overlay)return;
+      const frame=overlay.querySelector('iframe');
+      if(e.source!==frame?.contentWindow)return;
+      if(e.data?.type==='az-crop-ready'){
+        let crop=null;
+        try{crop=JSON.parse(active.input.value||'null')}catch{}
+        frame.contentWindow.postMessage({type:'az-crop-init',index:active.index,mode:active.mode,crop},location.origin);
+        return;
+      }
+      if(e.data?.type!=='az-crop-apply')return;
+      if(e.data.mode!==active.mode||e.data.index!==active.index)return;
+      const crop=e.data.crop;
+      if(!crop||!['x','y','zoom'].every(k=>typeof crop[k]==='number'&&Number.isFinite(crop[k])))return;
+      const value=JSON.stringify({x:crop.x,y:crop.y,zoom:crop.zoom});
+      const setter=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set;
+      setter.call(active.input,value);
+      active.input.dispatchEvent(new Event('input',{bubbles:true}));
+      active.input.dispatchEvent(new Event('change',{bubbles:true}));
+      overlay.remove();overlay=null;active=null;
+    });
+    setInterval(refresh,1100);
   })();
   </script>
 </body>
