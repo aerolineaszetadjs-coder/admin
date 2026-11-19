@@ -18,13 +18,14 @@
       {
         "src": "/assets/live-blue.webp",
         "position_x": 25,
-        "desktop_crop": "{\"x\":50,\"y\":66,\"zoom\":1}",
-        "mobile_crop": "{\"x\":73,\"y\":37,\"zoom\":0.75}"
+        "desktop_crop": "{\"x\":50,\"y\":65,\"zoom\":1}",
+        "mobile_crop": "{\"x\":79,\"y\":40,\"zoom\":0.8}"
       },
       {
         "src": "/assets/dues-samarretes-negres-logotip-central.webp",
         "position_x": 50,
-        "mobile_crop": "{\"x\":51,\"y\":37,\"zoom\":0.4}"
+        "mobile_crop": "{\"x\":51,\"y\":37,\"zoom\":0.4}",
+        "desktop_crop": "{\"x\":50,\"y\":50,\"zoom\":1}"
       },
       {
         "src": "/assets/duo-portrait.webp"
