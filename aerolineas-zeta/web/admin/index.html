@@ -119,6 +119,28 @@
         text.style.color = safeColor(String(color)) ? (cssColors[color] || color) : '#201c21';
       });
     }
+    // Control visual per a la mida CSS: manté el camp original com a font de veritat.
+    function addSizeControls(){
+      if(!editorOpen())return;
+      for(const [key,label] of groups){
+        const group=groupContainer(label);
+        if(!group)continue;
+        const field=fieldContainer(group,'Mida CSS');
+        const input=field?.querySelector('input:not([type="hidden"])');
+        if(!input||field.querySelector('.az-size-control'))continue;
+        const panel=document.createElement('div');panel.className='az-size-control';
+        panel.style.cssText='margin:10px 0;padding:12px;background:#f3f3f5;border:1px solid #ddd;border-radius:9px;color:#222;font:13px "DM Sans",sans-serif';
+        const title=document.createElement('div');title.textContent='Mida visual · px';title.style.fontWeight='700';
+        const range=document.createElement('input');range.type='range';range.min=key==='hero'?'24':'10';range.max=key==='hero'?'240':key==='headings'?'140':'70';range.step='1';range.style.width='100%';
+        const out=document.createElement('output');out.style.cssText='display:block;font-weight:700;margin:5px 0';
+        const note=document.createElement('div');note.style.cssText='font-size:11px;color:#666';note.textContent='El control genera una mida adaptable amb clamp(). Pots editar el CSS manualment.';
+        const parse=s=>{const m=String(s).match(/clamp\(\s*([\d.]+)px\s*,\s*([\d.]+)vw\s*,\s*([\d.]+)px\s*\)/i);if(m)return {min:+m[1],vw:+m[2],max:+m[3]};const px=String(s).match(/^\s*([\d.]+)px\s*$/i);return px?{min:+px[1],vw:0,max:+px[1]}:null};
+        const sync=()=>{const p=parse(input.value);if(!p){out.textContent='CSS personalitzat';return}const v=p.vw?Math.round(p.vw*12):Math.round(p.max);range.value=Math.max(+range.min,Math.min(+range.max,v));out.textContent=range.value+' px · referència escriptori'};
+        range.addEventListener('input',()=>{const v=Number(range.value);const min=Math.round(v*.48),vw=+(v/12).toFixed(2);const next=key==='body'||key==='navigation'||key==='buttons'||key==='subtitles'?v+'px':'clamp('+min+'px, '+vw+'vw, '+v+'px)';const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(input,next);input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));out.textContent=v+' px · referència escriptori';refresh()});
+        input.addEventListener('input',sync);
+        panel.append(title,range,out,note);field.append(panel);sync();
+      }
+    }
     document.addEventListener('DOMContentLoaded', () => {
       makePanel();
       fetch('/content/typography.json',{cache:'no-store'}).then(r=>r.ok?r.json():{}).then(v=>{defaults=v;refresh()}).catch(()=>{});
@@ -126,7 +148,7 @@
       document.addEventListener('change',refresh,true);
       document.addEventListener('click',()=>setTimeout(refresh,50),true);
       // Decap modifica el DOM en navegar i en desplegar camps.
-      setInterval(refresh,750);
+      setInterval(()=>{addSizeControls();refresh()},750);
     });
   })();
   </script>
