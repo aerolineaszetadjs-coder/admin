@@ -24,9 +24,34 @@
  }
  function addButton(article,i){
   if(!valid(i)){const p=document.createElement('small');p.textContent=t.missing;p.style.cssText='display:block;margin-top:12px;opacity:.7';article.append(p);return;}
-  const b=document.createElement('button');b.type='button';b.className='az-calendar-add';b.textContent=t.add;
-  b.style.cssText='display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-top:14px;padding:10px 14px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px "DM Sans",sans-serif';
-  b.addEventListener('click',()=>download(i));article.append(b);
+  const wrap=document.createElement('div');wrap.className='az-calendar-wrap';wrap.style.cssText='position:relative;display:inline-block;margin-top:14px;max-width:100%';
+  const b=document.createElement('button');b.type='button';b.className='az-calendar-add';b.textContent=t.add+' +';b.setAttribute('aria-expanded','false');
+  b.style.cssText='cursor:pointer;padding:10px 14px;border:1px solid currentColor;border-radius:0;background:transparent;color:inherit;font:700 13px Helvetica,Arial,sans-serif;letter-spacing:.01em';
+  const menu=document.createElement('div');menu.hidden=true;menu.className='az-calendar-menu';
+  menu.style.cssText='position:absolute;z-index:20;top:calc(100% + 4px);left:0;min-width:205px;max-width:90vw;padding:6px;border:1px solid currentColor;background:#fff;color:#171717;box-shadow:0 5px 16px #0002';
+  const start=dt(i.date,i.time),title='Aerolíneas Zeta · '+i.title,place=[i.venue,i.city].filter(Boolean).join(', ');
+  const google=new URL('https://calendar.google.com/calendar/render');
+  google.searchParams.set('action','TEMPLATE');google.searchParams.set('text',title);
+  google.searchParams.set('dates',start+'/'+(i.end_time&&/^([01]\\d|2[0-3]):[0-5]\\d$/.test(i.end_time)?dt(i.date,i.end_time):start));
+  google.searchParams.set('ctz','Europe/Madrid');google.searchParams.set('location',place);
+  if(/^https:\\/\\//i.test(i.url||''))google.searchParams.set('details',i.url);
+  const outlook=new URL('https://outlook.live.com/calendar/0/deeplink/compose');
+  outlook.searchParams.set('path','/calendar/action/compose');outlook.searchParams.set('rru','addevent');
+  outlook.searchParams.set('subject',title);outlook.searchParams.set('startdt',i.date+'T'+i.time+':00');
+  outlook.searchParams.set('location',place);
+  const option=(name,action)=>{
+   const el=document.createElement('button');el.type='button';el.textContent=name;
+   el.style.cssText='display:block;width:100%;padding:10px 12px;border:0;border-radius:0;background:transparent;color:#171717;text-align:left;cursor:pointer;font:600 13px Helvetica,Arial,sans-serif';
+   el.addEventListener('click',()=>{menu.hidden=true;b.setAttribute('aria-expanded','false');action();});
+   menu.append(el);
+  };
+  option('Google Calendar',()=>window.open(google.href,'_blank','noopener,noreferrer'));
+  option('Apple Calendar (.ics)',()=>download(i));
+  option('Outlook',()=>window.open(outlook.href,'_blank','noopener,noreferrer'));
+  b.addEventListener('click',()=>{menu.hidden=!menu.hidden;b.setAttribute('aria-expanded',String(!menu.hidden));});
+  document.addEventListener('click',e=>{if(!wrap.contains(e.target)){menu.hidden=true;b.setAttribute('aria-expanded','false');}});
+  wrap.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.hidden=true;b.setAttribute('aria-expanded','false');b.focus();}});
+  wrap.append(b,menu);article.append(wrap);
  }
  function subscribe(upcoming){
   if(!upcoming||document.getElementById('az-agenda-follow'))return;
