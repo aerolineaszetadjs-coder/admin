@@ -5,7 +5,7 @@
     "mode": "image",
     "animation": "",
     "interval": 5,
-    "remember_language": true,
+    "remember_language": false,
     "poster": "",
     "transition": "fade",
     "video": "",
