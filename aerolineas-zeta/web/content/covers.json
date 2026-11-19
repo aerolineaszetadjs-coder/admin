@@ -17,7 +17,9 @@
     "slides": [
       {
         "src": "/assets/live-blue.webp",
-        "position_x": 25
+        "position_x": 25,
+        "desktop_crop": "{\"x\":50,\"y\":66,\"zoom\":1}",
+        "mobile_crop": "{\"x\":73,\"y\":37,\"zoom\":0.75}"
       },
       {
         "src": "/assets/dues-samarretes-negres-logotip-central.webp",
