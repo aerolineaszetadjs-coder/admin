@@ -7,7 +7,7 @@
  };
  const lang=(document.documentElement.lang||'ca').slice(0,2),t=labels[lang]||labels.ca;
  const valid=i=>/^\d{4}-\d{2}-\d{2}$/.test(i.date||'')&&/^([01]\d|2[0-3]):[0-5]\d$/.test(i.time||'');
- const esc=v=>String(v||'').replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+ const esc=v=>String(v||'').replace(/\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
  const dt=(d,h)=>d.replace(/-/g,'')+'T'+h.replace(':','')+'00';
  function eventIcs(i){
   const url=/^https:\/\//i.test(i.url||'')?i.url:location.origin;
@@ -32,9 +32,13 @@
   const start=dt(i.date,i.time),title='Aerolíneas Zeta · '+i.title,place=[i.venue,i.city].filter(Boolean).join(', ');
   const google=new URL('https://calendar.google.com/calendar/render');
   google.searchParams.set('action','TEMPLATE');google.searchParams.set('text',title);
-  google.searchParams.set('dates',start+'/'+(i.end_time&&/^([01]\\d|2[0-3]):[0-5]\\d$/.test(i.end_time)?dt(i.date,i.end_time):start));
+  const endValid=/^([01]\d|2[0-3]):[0-5]\d$/.test(i.end_time||'');
+  const endDate=new Date(i.date+'T'+i.time+':00Z');
+  endDate.setUTCHours(endDate.getUTCHours()+1);
+  const fallbackEnd=endDate.toISOString().slice(0,19).replace(/[-:]/g,'');
+  google.searchParams.set('dates',start+'/'+(endValid?dt(i.date,i.end_time):fallbackEnd));
   google.searchParams.set('ctz','Europe/Madrid');google.searchParams.set('location',place);
-  if(/^https:\\/\\//i.test(i.url||''))google.searchParams.set('details',i.url);
+  if(/^https:\/\//i.test(i.url||''))google.searchParams.set('details',i.url);
   const outlook=new URL('https://outlook.live.com/calendar/0/deeplink/compose');
   outlook.searchParams.set('path','/calendar/action/compose');outlook.searchParams.set('rru','addevent');
   outlook.searchParams.set('subject',title);outlook.searchParams.set('startdt',i.date+'T'+i.time+':00');
