@@ -16,10 +16,12 @@
     "enabled": true,
     "slides": [
       {
-        "src": "/assets/live-blue.webp"
+        "src": "/assets/live-blue.webp",
+        "position_x": 25
       },
       {
-        "src": "/assets/dues-samarretes-negres-logotip-central.webp"
+        "src": "/assets/dues-samarretes-negres-logotip-central.webp",
+        "position_x": 50
       },
       {
         "src": "/assets/duo-portrait.webp"
