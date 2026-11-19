@@ -7,7 +7,7 @@
  };
  const lang=(document.documentElement.lang||'ca').slice(0,2),t=labels[lang]||labels.ca;
  const valid=i=>/^\d{4}-\d{2}-\d{2}$/.test(i.date||'')&&/^([01]\d|2[0-3]):[0-5]\d$/.test(i.time||'');
- const esc=v=>String(v||'').replace(/\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+ const esc=v=>String(v||'').replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
  const dt=(d,h)=>d.replace(/-/g,'')+'T'+h.replace(':','')+'00';
  function eventIcs(i){
   const url=/^https:\/\//i.test(i.url||'')?i.url:location.origin;
