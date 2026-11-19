@@ -28,7 +28,8 @@ records.forEach(record => record.addEventListener('toggle', () => {
 document.querySelectorAll('.languages a').forEach(link => link.addEventListener('click', () => {
  const url = new URL(link.href); url.hash = window.location.hash; link.href = url.href;
 }));
-</script><script defer="" src="../cms-runtime.js"></script><script>
+</script><script defer="" src="../cms-runtime.js"></script><script src="/agenda.js"></script>
+<script>
 
 /* Properes sessions / historial: dades de content/sessions.json */
 (async function () {
@@ -175,4 +176,4 @@ document.querySelector('.booking-form').addEventListener('submit', async functio
     }
   }catch(error){console.warn('No es pot aplicar la tipografia del CMS:',error)}
 })();
-</script><script src="/agenda.js"></script><script defer src="/covers-runtime.js"></script></body></html>
+</script><script defer src="/covers-runtime.js"></script></body></html>
