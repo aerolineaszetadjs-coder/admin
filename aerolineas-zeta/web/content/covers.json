@@ -21,7 +21,8 @@
       },
       {
         "src": "/assets/dues-samarretes-negres-logotip-central.webp",
-        "position_x": 50
+        "position_x": 50,
+        "mobile_crop": "{\"x\":51,\"y\":37,\"zoom\":0.4}"
       },
       {
         "src": "/assets/duo-portrait.webp"
