@@ -5,7 +5,8 @@
   "videos": [
     {
       "src": "/assets/dues-samarretes-negres-logotip-central.webp",
-      "title": "Esquena"
+      "title": "Esquena",
+      "poster": "/assets/dues-samarretes-negres-logotip-central.webp"
     }
   ]
 }
