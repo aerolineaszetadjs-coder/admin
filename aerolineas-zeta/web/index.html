@@ -155,4 +155,57 @@ if (bookingForm) {
   });
 }
 </script>
+<script>
+/* Tipografia del CMS: aplicar la configuració desada als elements del web. */
+(async function(){
+  const groups={
+    hero:'h1',
+    headings:'h2, .coming-soon',
+    subtitles:'.kicker, .eyebrow, .label small',
+    body:'body, .event p, .event-note',
+    navigation:'header nav a, .languages a',
+    buttons:'button, .btn, .textlink'
+  };
+  const families={
+    'Barlow Condensed':"'Barlow Condensed',Impact,sans-serif",
+    'DM Sans':"'DM Sans',Arial,sans-serif",
+    'Helvetica':"Helvetica,Arial,sans-serif",
+    'Helvetica Neue':"'Helvetica Neue',Helvetica,Arial,sans-serif",
+    'Arial Narrow':"'Arial Narrow',Arial,sans-serif",
+    'Inter':"'Inter',Arial,sans-serif",
+    'Archivo':"'Archivo',Arial,sans-serif",
+    'Archivo Narrow':"'Archivo Narrow',Arial,sans-serif",
+    'Roboto Condensed':"'Roboto Condensed',Arial,sans-serif",
+    'Oswald':"'Oswald',Arial,sans-serif",
+    'Space Grotesk':"'Space Grotesk',Arial,sans-serif",
+    'IBM Plex Sans':"'IBM Plex Sans',Arial,sans-serif",
+    'Anton':"'Anton',Impact,sans-serif",
+    'Bebas Neue':"'Bebas Neue',Impact,sans-serif",
+    'Montserrat':"'Montserrat',Arial,sans-serif",
+    'Arial':'Arial,sans-serif','Georgia':'Georgia,serif','Verdana':'Verdana,sans-serif'
+  };
+  try{
+    const response=await fetch('/content/typography.json',{cache:'no-store'});
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    const data=await response.json();
+    const css=[];
+    const safeSize=v=>typeof v==='string'&&/^(?:\\d+(?:\\.\\d+)?(?:px|rem|em|vw)|clamp\\(\\s*\\d+(?:\\.\\d+)?px\\s*,\\s*\\d+(?:\\.\\d+)?vw\\s*,\\s*\\d+(?:\\.\\d+)?px\\s*\\))$/i.test(v.trim());
+    const safeColor=v=>typeof v==='string'&&(/^(?:#[0-9a-f]{3,8}|var\\(--(?:ink|paper|pink|orange)\\))$/i.test(v.trim()));
+    for(const [group,selector] of Object.entries(groups)){
+      const value=data[group];if(!value||typeof value!=='object')continue;
+      const props=[];
+      if(families[value.font])props.push('font-family:'+families[value.font]+' !important');
+      if(safeSize(value.size))props.push('font-size:'+value.size.trim()+' !important');
+      if(Number.isInteger(Number(value.weight))&&Number(value.weight)>=100&&Number(value.weight)<=900)props.push('font-weight:'+Number(value.weight)+' !important');
+      if(safeColor(value.color))props.push('color:'+value.color.trim()+' !important');
+      if(props.length)css.push(selector+'{'+props.join(';')+'}');
+    }
+    if(css.length){
+      const style=document.createElement('style');
+      style.id='az-cms-typography';style.textContent=css.join('\\n');
+      document.head.appendChild(style);
+    }
+  }catch(error){console.warn('No es pot aplicar la tipografia del CMS:',error)}
+})();
+</script>
 <script defer src="/covers-runtime.js"></script></body></html>
