@@ -31,6 +31,11 @@
         "src": "/assets/duo-portrait.webp",
         "desktop_crop": "{\"x\":50,\"y\":40,\"zoom\":0.3}",
         "mobile_crop": "{\"x\":50,\"y\":31,\"zoom\":1}"
+      },
+      {
+        "position_x": 50,
+        "position_y": 50,
+        "src": "/assets/live-orange.webp"
       }
     ],
     "mode": "carousel",
