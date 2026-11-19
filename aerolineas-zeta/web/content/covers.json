@@ -13,7 +13,7 @@
     "mobile_image": ""
   },
   "main": {
-    "enabled": false,
+    "enabled": true,
     "slides": [],
     "mode": "image",
     "animation": "",
@@ -21,7 +21,7 @@
     "poster": "",
     "transition": "fade",
     "video": "",
-    "image": "",
-    "mobile_image": ""
+    "image": "/assets/dues-samarretes-negres-logotip-central.webp",
+    "mobile_image": "/assets/dues-samarretes-negres-logotip-central.webp"
   }
 }
