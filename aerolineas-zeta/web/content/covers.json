@@ -10,7 +10,7 @@
     "transition": "fade",
     "video": "",
     "image": "/assets/dues-samarretes-negres-logotip-central.webp",
-    "mobile_image": "/assets/dues-samarretes-negres-logotip-central.webp"
+    "mobile_image": ""
   },
   "main": {
     "enabled": false,
