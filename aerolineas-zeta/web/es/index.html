@@ -71,6 +71,7 @@ document.querySelectorAll('.languages a').forEach(link => {
       link.className = 'textlink'; link.href = item.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = t.link;
       article.append(link);
     }
+    if (target === upcoming && window.AZAgenda) window.AZAgenda.addButton(article,item);
     target.append(article);
   }
   try {
@@ -82,6 +83,7 @@ document.querySelectorAll('.languages a').forEach(link => {
     const future = items.filter(item => item.date >= today).sort((a,b) => a.date.localeCompare(b.date) || (a.time || '').localeCompare(b.time || ''));
     const previous = items.filter(item => item.date < today).sort((a,b) => b.date.localeCompare(a.date) || (b.time || '').localeCompare(a.time || ''));
     future.forEach(item => addEvent(upcoming,item));
+    if (window.AZAgenda) window.AZAgenda.subscribe(upcoming);
     if (!future.length) {const p=document.createElement('p');p.className='az-sessions-message';p.textContent=t.empty;upcoming.append(p);}
     previous.forEach(item => addEvent(past,item));
     archive.hidden = previous.length === 0;
@@ -177,5 +179,5 @@ document.querySelectorAll('.languages a').forEach(link => {
     }
   }catch(error){console.warn('No es pot aplicar la tipografia del CMS:',error)}
 })();
-</script><script defer src="/covers-runtime.js"></script></body>
+</script><script src="/agenda.js"></script><script defer src="/covers-runtime.js"></script></body>
 </html>
