@@ -17,7 +17,7 @@
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id), slide=$('slide'), phone=$('phone'), photo=$('photo'), result=$('result');
-let slides=[],index=0,drag=null,mode='mobile',token=null,original=null,dirty=false;const branch='feature/editor-visual-mobil-v2',auth='https://winter-heart-4dcaaerolineas-zeta-cms-auth.aerolineaszetadjs.workers.dev',api='https://api.github.com/repos/aerolineaszetadjs-coder/admin/contents/aerolineas-zeta/web/content/covers.json';const status=s=>$('status').textContent=s;
+let slides=[],index=0,drag=null,mode='mobile',token=null,original=null,dirty=false,authPopup=null;const branch='feature/editor-visual-mobil-v2',auth='https://winter-heart-4dcaaerolineas-zeta-cms-auth.aerolineaszetadjs.workers.dev',api='https://api.github.com/repos/aerolineaszetadjs-coder/admin/contents/aerolineas-zeta/web/content/covers.json';const status=s=>$('status').textContent=s;
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const valid=u=>typeof u==='string'&&/^\/assets\/[a-z0-9_./%()\-]+$/i.test(u);
 function state(){return slides[index]?.[mode]}
@@ -34,12 +34,14 @@ phone.addEventListener('pointermove',e=>{if(!drag)return;const r=phone.getBoundi
 fetch('/content/covers.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No es pot llegir covers.json');return r.json()}).then(data=>{original=data;slides=(data.main?.slides||[]).filter(s=>valid(s.mobile_src)||valid(s.src)).map(s=>{const parse=(key,x,y)=>{let v={};try{v=JSON.parse(s[key]||'{}')}catch(e){}return {src:key==='mobile_crop'&&valid(s.mobile_src)?s.mobile_src:s.src,x:clamp(Number(v.x??x),0,100),y:clamp(Number(v.y??y),0,100),zoom:clamp(Number(v.zoom??1),.3,3)}};return {mobile:parse('mobile_crop',s.position_x??50,s.position_y??50),desktop:parse('desktop_crop',s.position_x??50,s.position_y??50)}});if(!slides.length)throw Error('No hi ha fotografies configurades');slides.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent='Fotografia '+(i+1)+' · '+s.desktop.src.split('/').pop();slide.append(o)});select(0)}).catch(e=>{result.value=e.message;});
 
 $('login').addEventListener('click',()=>{
-  const popup=window.open(auth+'/auth?provider=github&site_id='+encodeURIComponent(location.host),'az-github','width=650,height=750');
+  const popup=window.open(auth+'/auth?provider=github&site_id='+encodeURIComponent(location.host),'az-github','width=650,height=750');authPopup=popup;
   status(popup?'Esperant autorització de GitHub…':'Activa les finestres emergents per iniciar sessió.');
 });
 window.addEventListener('message',e=>{
+  if(e.source!==authPopup)return;
   if(e.origin!==new URL(auth).origin)return;
   let data=e.data;
+  if(data==='authorizing:github'){authPopup.postMessage('authorizing:github',e.origin);status('Autorització iniciada. Esperant resposta de GitHub…');return;}
   if(typeof data==='string'&&data.startsWith('authorization:github:success:')){
     try{data=JSON.parse(data.slice('authorization:github:success:'.length))}catch{return}
   }
