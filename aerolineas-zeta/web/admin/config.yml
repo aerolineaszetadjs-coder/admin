@@ -69,6 +69,7 @@ collections:
         - {label: Versió mòbil, name: mobile_src, widget: image, required: false}
         - {label: Enquadrament horitzontal (%), name: position_x, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = esquerra, 50 = centre, 100 = dreta'}
         - {label: Enquadrament vertical (%), name: position_y, widget: number, value_type: int, min: 0, max: 100, default: 50, required: false, hint: '0 = dalt, 50 = centre, 100 = baix'}
+        - {label: Enquadrament escriptori avançat (JSON), name: desktop_crop, widget: text, required: false, hint: 'Configuració generada amb el mode Escriptori de /admin/editor-mobil.html. Encara no desis des del CMS de proves.'}
         - {label: Enquadrament mòbil avançat (JSON), name: mobile_crop, widget: text, required: false, hint: 'Obre /admin/editor-mobil.html en una altra pestanya per ajustar la fotografia visualment. Copia la configuració aquí. IMPORTANT: aquest CMS encara desa a proves-cms; no desis fins que validem la integració.'}
         - {label: Text alternatiu, name: alt, widget: string, required: false}
       - {label: Vídeo MP4 o WebM, name: video, widget: file, required: false}
