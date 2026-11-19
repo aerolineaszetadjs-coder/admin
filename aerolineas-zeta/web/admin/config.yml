@@ -1,13 +1,81 @@
 backend:
   name: github
   repo: aerolineaszetadjs-coder/admin
-  branch: main
+  branch: proves-cms
   base_url: https://winter-heart-4dcaaerolineas-zeta-cms-auth.aerolineaszetadjs.workers.dev
   auth_endpoint: auth
 media_folder: aerolineas-zeta/web/assets
 public_folder: /assets
 publish: false
 collections:
+
+- name: cover_management
+  label: Gestió de portades
+  files:
+  - name: covers
+    label: Portada d'accés i portada principal
+    file: aerolineas-zeta/web/content/covers.json
+    fields:
+    - label: Portada d'accés (selector d'idioma)
+      name: access
+      widget: object
+      fields:
+      - {label: Activada, name: enabled, widget: boolean, default: false}
+      - label: Modalitat
+        name: mode
+        widget: select
+        options: [{label: Imatge fixa, value: image}, {label: Carrusel de fotografies, value: carousel}, {label: Vídeo, value: video}, {label: Animació GIF o WebP, value: animation}]
+        default: image
+      - {label: Imatge fixa, name: image, widget: image, required: false}
+      - {label: Imatge per a mòbil, name: mobile_image, widget: image, required: false}
+      - label: Fotografies del carrusel
+        name: slides
+        widget: list
+        required: false
+        fields:
+        - {label: Fotografia, name: src, widget: image}
+        - {label: Versió mòbil, name: mobile_src, widget: image, required: false}
+        - {label: Text alternatiu, name: alt, widget: string, required: false}
+      - {label: Vídeo MP4 o WebM, name: video, widget: file, required: false}
+      - {label: Imatge alternativa del vídeo, name: poster, widget: image, required: false}
+      - {label: Animació GIF o WebP, name: animation, widget: image, required: false}
+      - {label: Interval del carrusel (segons), name: interval, widget: number, value_type: int, min: 3, max: 15, default: 5}
+      - label: Transició
+        name: transition
+        widget: select
+        options: [{label: Fos encadenat, value: fade}, {label: Desplaçament, value: slide}]
+        default: fade
+      - {label: Recordar l'idioma escollit, name: remember_language, widget: boolean, default: true}
+    - label: Portada del web principal
+      name: main
+      widget: object
+      fields:
+      - {label: Activar fons multimèdia, name: enabled, widget: boolean, default: false}
+      - label: Modalitat
+        name: mode
+        widget: select
+        options: [{label: Imatge fixa, value: image}, {label: Carrusel de fotografies, value: carousel}, {label: Vídeo, value: video}, {label: Animació GIF o WebP, value: animation}]
+        default: image
+      - {label: Imatge fixa, name: image, widget: image, required: false}
+      - {label: Imatge per a mòbil, name: mobile_image, widget: image, required: false}
+      - label: Fotografies del carrusel
+        name: slides
+        widget: list
+        required: false
+        fields:
+        - {label: Fotografia, name: src, widget: image}
+        - {label: Versió mòbil, name: mobile_src, widget: image, required: false}
+        - {label: Text alternatiu, name: alt, widget: string, required: false}
+      - {label: Vídeo MP4 o WebM, name: video, widget: file, required: false}
+      - {label: Imatge alternativa del vídeo, name: poster, widget: image, required: false}
+      - {label: Animació GIF o WebP, name: animation, widget: image, required: false}
+      - {label: Interval del carrusel (segons), name: interval, widget: number, value_type: int, min: 3, max: 15, default: 5}
+      - label: Transició
+        name: transition
+        widget: select
+        options: [{label: Fos encadenat, value: fade}, {label: Desplaçament, value: slide}]
+        default: fade
+
 
 - name: live_sessions
   label: Gestionar sessions

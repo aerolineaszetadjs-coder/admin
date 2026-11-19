@@ -1,6 +1,12 @@
 {
-  "enabled": false,
+  "enabled": true,
   "heading": "Vídeos",
   "seconds_per_video": 20,
-  "videos": []
+  "videos": [
+    {
+      "src": "/assets/dues-samarretes-negres-logotip-central.webp",
+      "title": "Esquena",
+      "poster": "/assets/dues-samarretes-negres-logotip-central.webp"
+    }
+  ]
 }

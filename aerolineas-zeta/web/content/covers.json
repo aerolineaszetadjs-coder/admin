@@ -1,0 +1,27 @@
+{
+  "access": {
+    "enabled": false,
+    "mode": "image",
+    "image": "",
+    "mobile_image": "",
+    "slides": [],
+    "video": "",
+    "poster": "",
+    "animation": "",
+    "interval": 5,
+    "transition": "fade",
+    "remember_language": true
+  },
+  "main": {
+    "enabled": false,
+    "mode": "image",
+    "image": "",
+    "mobile_image": "",
+    "slides": [],
+    "video": "",
+    "poster": "",
+    "animation": "",
+    "interval": 5,
+    "transition": "fade"
+  }
+}
