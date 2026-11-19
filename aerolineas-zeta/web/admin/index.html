@@ -185,7 +185,16 @@
       });
     }
     window.addEventListener('message',e=>{
-      if(e.origin!==location.origin||!active||e.data?.type!=='az-crop-apply')return;
+      if(e.origin!==location.origin||!active||!overlay)return;
+      const frame=overlay.querySelector('iframe');
+      if(e.source!==frame?.contentWindow)return;
+      if(e.data?.type==='az-crop-ready'){
+        let crop=null;
+        try{crop=JSON.parse(active.input.value||'null')}catch{}
+        frame.contentWindow.postMessage({type:'az-crop-init',index:active.index,mode:active.mode,crop},location.origin);
+        return;
+      }
+      if(e.data?.type!=='az-crop-apply')return;
       if(e.data.mode!==active.mode||e.data.index!==active.index)return;
       const crop=e.data.crop;
       if(!crop||!['x','y','zoom'].every(k=>typeof crop[k]==='number'&&Number.isFinite(crop[k])))return;
