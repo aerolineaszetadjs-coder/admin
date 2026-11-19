@@ -1,6 +1,6 @@
 {
   "hero": {
-    "font": "Barlow Condensed",
+    "font": "Oswald",
     "size": "clamp(80px, 14vw, 210px)",
     "weight": 700,
     "color": "#ffffff"
