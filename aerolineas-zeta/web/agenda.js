@@ -23,7 +23,7 @@
   a.href=u;a.download='aerolineas-zeta-'+i.date+'.ics';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
  }
  function addButton(article,i){
-  if(!valid(i))return;
+  if(!valid(i)){const p=document.createElement('small');p.textContent=t.missing;p.style.cssText='display:block;margin-top:12px;opacity:.7';article.append(p);return;}
   const b=document.createElement('button');b.type='button';b.className='az-calendar-add';b.textContent=t.add;
   b.style.cssText='display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-top:14px;padding:10px 14px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px "DM Sans",sans-serif';
   b.addEventListener('click',()=>download(i));article.append(b);
