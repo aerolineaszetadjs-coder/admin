@@ -2,7 +2,7 @@
   "hero": {
     "font": "Barlow Condensed",
     "size": "clamp(80px, 14vw, 210px)",
-    "weight": 900,
+    "weight": 700,
     "color": "#ffffff"
   },
   "headings": {
